@@ -1,0 +1,92 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "OSGW API app",
+    "version": "0.0.1"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "paths": {
+    "/api/osgw/{username}": {
+      "get": {
+        "description": "If connection to the providers fails Services Unavailable (503) will be returned.",
+        "tags": [
+          "repository"
+        ],
+        "summary": "Returns repository count and temperature",
+        "operationId": "temperature",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "username to search",
+            "name": "username",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/swaggRepoAvgTempResponse"
+          },
+          "503": {
+            "$ref": "#/responses/swaggErrResponse"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "RepoAvgTempResponse": {
+      "type": "object",
+      "properties": {
+        "avg_temp": {
+          "type": "number",
+          "format": "double",
+          "x-go-name": "AvgTemp"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Count"
+        }
+      },
+      "x-go-package": "osgw"
+    }
+  },
+  "responses": {
+    "swaggErrResponse": {
+      "description": "HTTP status code 503",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "description": "HTTP status code 503 -  Service Unavailable",
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Error"
+          },
+          "message": {
+            "description": "Detailed error message",
+            "type": "string",
+            "x-go-name": "Message"
+          }
+        }
+      }
+    },
+    "swaggRepoAvgTempResponse": {
+      "description": "HTTP status code 200 and ticker price",
+      "schema": {
+        "$ref": "#/definitions/RepoAvgTempResponse"
+      }
+    }
+  }
+}
