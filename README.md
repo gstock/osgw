@@ -1,11 +1,15 @@
 # OSGW
 ## Documentación
 **Endpoint**: `/api/osgw/{{username}}`
+
 *username*: usuario de Github
+
 **Response**
+
 `{"count":30,"avg_temp":20.9}`
 
 *count*: cantidad de repositorios
+
 *avg_temp*: promedio de temperatura (solo de aquellos repositorios de los cuales se pudo obtener la temperatura)
 
 ## Notas
